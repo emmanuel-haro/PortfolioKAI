@@ -2,6 +2,15 @@ import React from 'react';
 import { GraduationCap, Briefcase, Award } from 'lucide-react';
 
 const timeline = [
+    {
+    year: '2026',
+    title: 'Certifications Achieved',
+    organization: 'World Quant University',
+    description:
+      'Data Science',
+    type: 'certification',
+    icon: Award,
+  },
   {
     year: '2025',
     title: 'Full Stack Web Development',
@@ -26,7 +35,7 @@ const timeline = [
     title: 'Certifications Achieved',
     organization: 'Cisco & Microsoft',
     description:
-      'Data Analytics Essentials, Data Science, Networking Course (Cisco), and Microsoft Azure AI Fundamentals certification.',
+      'Data Analytics Essentials, Networking Course (Cisco), and Microsoft Azure AI Fundamentals certification.',
     type: 'certification',
     icon: Award,
   },

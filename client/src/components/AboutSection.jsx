@@ -27,7 +27,7 @@ const AboutSection = () => {
                   Emmanuel Kai Haro
                 </h3>
                 <p className="text-primary font-medium text-center">
-                  Full Stack Developer & Data Analyst
+                  Full Stack Developer | Data Scientist | Data Analyst
                 </p>
 
                 {/* CV Download Button */}

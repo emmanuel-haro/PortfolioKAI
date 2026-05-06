@@ -3,11 +3,21 @@
 ### 1) Environment
 Create `Server/.env` (or copy `.env.example`) and set:
 ```
-DATABASE_URL=mongodb+srv://user:pass@cluster/mydb
+DATABASE_URL="mongodb://127.0.0.1:27017/kai_portfolio"
 PORT=3000
-# optional
-API_KEY=your-api-key
+
+# SMTP / nodemailer settings for email sending (Gmail)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your-gmail@gmail.com
+SMTP_PASS=your-gmail-app-password
+EMAIL_FROM_NAME=Portfolio Website
+EMAIL_FROM="Portfolio Website <your-gmail@gmail.com>"
+EMAIL_TO=your-gmail@gmail.com
 ```
+
+For Atlas, replace `DATABASE_URL` with your `mongodb+srv://...` URI and URL-encode special characters in password (example: `#` => `%23`).
+For Gmail you must enable 2-Step Verification and use a 16-character App Password as `SMTP_PASS` (regular Gmail password will fail).
 
 ### 2) Run locally
 ```
@@ -23,7 +33,6 @@ Server runs at `http://localhost:3000`.
 - `POST   /api/portfolio` – create project
 - `PUT    /api/portfolio/:id` – update project
 - `DELETE /api/portfolio/:id` – delete project
-If `API_KEY` is set, send `x-api-key: <value>` header.
 
 ### 4) Postman quick start
 - Import a collection with the above routes (base URL `http://localhost:3000`).

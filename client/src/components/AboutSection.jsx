@@ -102,7 +102,7 @@ const AboutSection = () => {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">University</p>
-                  <p className="font-medium">JKUAT - Year 3.1</p>
+                  <p className="font-medium">JKUAT - Year 3.2</p>
                 </div>
               </div>
 

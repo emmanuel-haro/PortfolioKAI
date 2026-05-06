@@ -33,7 +33,9 @@ const HeroSection = () => {
           {/* Title */}
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 animate-fade-in-up delay-200">
             Full Stack Web Developer <span className="text-primary">|</span>{' '}
-            Data Analyst <span className="text-primary">|</span> MERN Specialist
+            MERN Specialist <span className="text-primary">|</span>{' '}
+            Data Analyst <span className="text-primary">|</span>{' '}
+            Data Scientist
           </p>
 
           {/* Description */}

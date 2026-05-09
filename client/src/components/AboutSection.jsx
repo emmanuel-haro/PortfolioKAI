@@ -112,7 +112,7 @@ const AboutSection = () => {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Specialization</p>
-                  <p className="font-medium">MERN Stack & Data Analytics</p>
+                  <p className="font-medium">MERN Stack, Data Analytics & Data Science</p>
                 </div>
               </div>
 

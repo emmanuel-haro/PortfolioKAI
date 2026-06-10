@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 export const fetchPortfolio = async () => {
   const res = await fetch(`${API_BASE}/api/portfolio`, {

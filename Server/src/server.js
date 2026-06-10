@@ -26,8 +26,8 @@ const start = async () => {
       log("Connected to fallback MongoDB");
     }
 
-    app.listen(Number(PORT), () => {
-      log(`Server listening on http://localhost:${PORT}`);
+    app.listen(Number(PORT), "0.0.0.0", () => {
+      log(`Server listening on port ${PORT}`);
     });
   } catch (err) {
     console.error("Failed to start server", err);

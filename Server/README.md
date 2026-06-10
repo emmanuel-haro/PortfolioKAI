@@ -50,7 +50,24 @@ Server runs at `http://localhost:3000`.
 }
 ```
 
-### 5) Deploy notes
-- Set `DATABASE_URL`, `PORT`, and optional `API_KEY` in your host’s env.
-- Ensure MongoDB is reachable from the host (allow IP / VPC).
-- The client expects the server base URL in `VITE_API_URL`.
+### 5) Deploy to Render
+1. Push this repo to GitHub.
+2. In [Render](https://render.com), create a **Web Service** from the repo (or use the root `render.yaml` Blueprint).
+3. Set **Root Directory** to `Server`.
+4. **Build command:** `npm install`
+5. **Start command:** `npm start`
+6. Add environment variables from `Server/.env.example` (especially `DATABASE_URL` and `CLIENT_URL`).
+7. In MongoDB Atlas, allow access from anywhere (`0.0.0.0/0`) or Render’s IP range.
+8. Health check: `GET /health`
+
+### 6) Deploy frontend to Vercel
+1. Import the repo in [Vercel](https://vercel.com).
+2. Set **Root Directory** to `client`.
+3. **Build command:** `npm run build`
+4. **Output directory:** `dist`
+5. Add env var: `VITE_API_URL` = your Render API URL (e.g. `https://kai-portfolio-api.onrender.com`).
+
+### 7) Postman (production)
+- Base URL: your Render service URL.
+- Add header `x-api-key: <API_KEY>` if `API_KEY` is set on the server.
+- `GET /api/contact/messages` requires the API key when configured.

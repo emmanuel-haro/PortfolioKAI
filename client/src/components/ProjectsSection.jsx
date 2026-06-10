@@ -4,34 +4,26 @@ import { Button } from './ui/button';
 import { useQuery } from '@tanstack/react-query';
 import { fetchPortfolio } from '@/lib/api';
 
-const POWER_BI_PROJECT = {
-  id: 'power-bi-dashboard',
-  title: 'Recording Equipment Sales Dashboard',
-  description:
-    'Interactive Power BI dashboard analyzing equipment sales data for 2022–2023. Features revenue trends, country breakdowns, and discount band analysis for the QuadCast S product line.',
-  technologies: ['Power BI', 'Data Analytics', 'Business Intelligence'],
-  liveUrl:
-    'https://app.powerbi.com/links/UnT2ciOPpw?ctid=0765532a-06c1-4f0f-9f39-394689f5f8fe&pbi_source=linkShare',
-  imageUrl: '/images/powerbi-dashboard.png',
-};
-
-const fallbackProjects = [
-  POWER_BI_PROJECT,
+const FEATURED_PROJECTS = [
   {
-    id: 'seed-1',
-    title: 'Portfolio Website',
+    id: 'power-bi-dashboard',
+    title: 'Recording Equipment Sales Dashboard',
     description:
-      'A cinematic personal portfolio built with React, TypeScript, and Tailwind CSS showcasing my skills and projects.',
-    technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-    liveUrl: '#',
-    githubUrl: '#',
+      'Interactive Power BI dashboard analyzing equipment sales data for 2022–2023. Features revenue trends, country breakdowns, and discount band analysis for the QuadCast S product line.',
+    technologies: ['Power BI', 'Data Analytics', 'Business Intelligence'],
+    liveUrl:
+      'https://app.powerbi.com/links/UnT2ciOPpw?ctid=0765532a-06c1-4f0f-9f39-394689f5f8fe&pbi_source=linkShare',
+    imageUrl: '/images/powerbi-dashboard.png',
   },
   {
-    id: 'seed-2',
-    title: 'Coming Soon',
+    id: 'savanna-spice',
+    title: 'Savanna Spice',
     description:
-      "More exciting projects are in development. Check back soon to see what I'm building next!",
-    technologies: ['MERN Stack', 'Coming Soon'],
+      'A modern African fusion restaurant website with responsive layout, menu showcase, gallery, and table reservation. Celebrates East, West, and Southern African culinary traditions.',
+    technologies: ['JavaScript', 'HTML', 'CSS'],
+    liveUrl: 'https://emmanuel-haro.github.io/FUTURE_FS_03/',
+    githubUrl: 'https://github.com/emmanuel-haro/FUTURE_FS_03',
+    imageUrl: '/images/savanna-spice.png',
   },
 ];
 
@@ -125,16 +117,19 @@ const ProjectsSection = () => {
   });
 
   const projects = useMemo(() => {
-    const apiProjects = isError || !data ? fallbackProjects : data.map(mapApiProject);
+    const apiProjects = isError || !data ? [] : data.map(mapApiProject);
 
-    const hasPowerBi = apiProjects.some(
-      (p) =>
-        p.id === POWER_BI_PROJECT.id ||
-        p.title?.toLowerCase().includes('power bi') ||
-        p.liveUrl?.includes('powerbi.com')
+    const missingFeatured = FEATURED_PROJECTS.filter(
+      (featured) =>
+        !apiProjects.some(
+          (p) =>
+            p.id === featured.id ||
+            p.liveUrl === featured.liveUrl ||
+            p.title?.toLowerCase() === featured.title.toLowerCase()
+        )
     );
 
-    return hasPowerBi ? apiProjects : [POWER_BI_PROJECT, ...apiProjects];
+    return [...missingFeatured, ...apiProjects];
   }, [data, isError]);
 
   return (

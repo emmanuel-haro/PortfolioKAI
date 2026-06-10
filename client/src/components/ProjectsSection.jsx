@@ -4,18 +4,19 @@ import { Button } from './ui/button';
 import { useQuery } from '@tanstack/react-query';
 import { fetchPortfolio } from '@/lib/api';
 
+const POWER_BI_PROJECT = {
+  id: 'power-bi-dashboard',
+  title: 'Recording Equipment Sales Dashboard',
+  description:
+    'Interactive Power BI dashboard analyzing equipment sales data for 2022–2023. Features revenue trends, country breakdowns, and discount band analysis for the QuadCast S product line.',
+  technologies: ['Power BI', 'Data Analytics', 'Business Intelligence'],
+  liveUrl:
+    'https://app.powerbi.com/links/UnT2ciOPpw?ctid=0765532a-06c1-4f0f-9f39-394689f5f8fe&pbi_source=linkShare',
+  imageUrl: '/images/powerbi-dashboard.png',
+};
+
 const fallbackProjects = [
-  {
-    id: 'seed-0',
-    title: 'Recording Equipment Sales Dashboard',
-    description:
-      'Interactive Power BI dashboard analyzing equipment sales data for 2022-2023. Features real-time visualizations, trend analysis, and performance metrics across different countries and product categories.',
-    technologies: ['Power BI', 'Data Analytics', 'Business Intelligence'],
-    liveUrl: 'https://app.powerbi.com/links/UnT2ciOPpw?ctid=0765532a-06c1-4f0f-9f39-394689f5f8fe&pbi_source=linkShare',
-    isEmbedded: true,
-    embedUrl: 'https://app.powerbi.com/links/UnT2ciOPpw?ctid=0765532a-06c1-4f0f-9f39-394689f5f8fe&pbi_source=linkShare',
-    imageUrl: '/images/powerbi-dashboard.png',
-  },
+  POWER_BI_PROJECT,
   {
     id: 'seed-1',
     title: 'Portfolio Website',
@@ -34,122 +35,86 @@ const fallbackProjects = [
   },
 ];
 
-const ProjectCard = ({ project, isEmbedded }) => {
-  if (isEmbedded) {
-    return (
-      <div className="glass-card-hover rounded-2xl overflow-hidden group md:col-span-2 lg:col-span-3">
-        {/* Dashboard Preview Image and Embed */}
-        <div className="grid md:grid-cols-2 gap-4 p-4">
-          {/* Image Preview */}
-          {project.imageUrl && (
-            <div className="relative overflow-hidden rounded-xl h-96">
-              <img 
-                src={project.imageUrl}
-                alt={project.title}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-            </div>
-          )}
-          
-          {/* Power BI Embed */}
-          <div className="relative overflow-hidden rounded-xl">
-            <div className="relative w-full h-96">
-              <iframe
-                src={project.embedUrl}
-                title={project.title}
-                allowFullScreen
-                className="w-full h-full border-0 rounded-xl"
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </div>
+const mapApiProject = (item) => ({
+  id: item.id || item._id,
+  title: item.title,
+  description: item.description,
+  technologies: item.technologies?.length ? item.technologies : item.tags || [],
+  liveUrl: item.liveUrl,
+  githubUrl: item.githubUrl,
+  imageUrl: item.imageUrl,
+});
 
-        {/* Content */}
-        <div className="px-6 pb-6">
-          <h3 className="text-xl font-heading font-semibold mb-2">{project.title}</h3>
-          <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
-            {project.description}
-          </p>
-          <div className="flex flex-wrap gap-2 mb-4">
-            {project.technologies.map((tech) => (
-              <span
-                key={tech}
-                className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary border border-primary/20"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-          {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-primary hover:underline font-semibold"
-            >
-              <ExternalLink size={16} />
-              View Full Report
-            </a>
-          )}
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="glass-card-hover rounded-2xl overflow-hidden group">
-      {/* Project image placeholder */}
-      <div className="aspect-video bg-gradient-to-br from-primary/20 to-blue-500/20 relative overflow-hidden">
+const ProjectCard = ({ project }) => (
+  <div className="glass-card-hover rounded-2xl overflow-hidden group">
+    <div className="aspect-video bg-gradient-to-br from-primary/20 to-blue-500/20 relative overflow-hidden">
+      {project.imageUrl ? (
+        <img
+          src={project.imageUrl}
+          alt={project.title}
+          className="w-full h-full object-cover object-top"
+        />
+      ) : (
         <div className="absolute inset-0 flex items-center justify-center">
           <Folder size={48} className="text-primary/50" />
         </div>
-        {/* Hover overlay */}
-        <div className="absolute inset-0 bg-background/90 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-4">
-          {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-full bg-primary text-primary-foreground hover:scale-110 transition-transform"
-            >
-              <ExternalLink size={20} />
-            </a>
-          )}
-          {project.githubUrl && (
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-full bg-secondary text-foreground hover:scale-110 transition-transform"
-            >
-              <Github size={20} />
-            </a>
-          )}
-        </div>
-      </div>
+      )}
 
-      {/* Content */}
-      <div className="p-6">
-        <h3 className="text-xl font-heading font-semibold mb-2">{project.title}</h3>
-        <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
-          {project.description}
-        </p>
-        <div className="flex flex-wrap gap-2">
-          {project.technologies.map((tech) => (
-            <span
-              key={tech}
-              className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary border border-primary/20"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
+      <div className="absolute inset-0 bg-background/90 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-4">
+        {project.liveUrl && project.liveUrl !== '#' && (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-3 rounded-full bg-primary text-primary-foreground hover:scale-110 transition-transform"
+            aria-label={`Open ${project.title} live project`}
+          >
+            <ExternalLink size={20} />
+          </a>
+        )}
+        {project.githubUrl && project.githubUrl !== '#' && (
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-3 rounded-full bg-secondary text-foreground hover:scale-110 transition-transform"
+            aria-label={`View ${project.title} on GitHub`}
+          >
+            <Github size={20} />
+          </a>
+        )}
       </div>
     </div>
-  );
-};
+
+    <div className="p-6">
+      <h3 className="text-xl font-heading font-semibold mb-2">{project.title}</h3>
+      <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+        {project.description}
+      </p>
+      <div className="flex flex-wrap gap-2">
+        {project.technologies.map((tech) => (
+          <span
+            key={tech}
+            className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary border border-primary/20"
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
+      {project.liveUrl && project.liveUrl !== '#' && (
+        <a
+          href={project.liveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 text-primary hover:underline font-semibold text-sm mt-4"
+        >
+          <ExternalLink size={16} />
+          View Live Project
+        </a>
+      )}
+    </div>
+  </div>
+);
 
 const ProjectsSection = () => {
   const { data, isLoading, isError } = useQuery({
@@ -160,23 +125,20 @@ const ProjectsSection = () => {
   });
 
   const projects = useMemo(() => {
-    if (isError || !data) return fallbackProjects;
-    return data.map((item) => ({
-      id: item.id || item._id,
-      title: item.title,
-      description: item.description,
-      technologies: item.technologies?.length ? item.technologies : item.tags || [],
-      liveUrl: item.liveUrl,
-      githubUrl: item.githubUrl,
-      imageUrl: item.imageUrl,
-      isEmbedded: item.isEmbedded,
-      embedUrl: item.embedUrl,
-    }));
+    const apiProjects = isError || !data ? fallbackProjects : data.map(mapApiProject);
+
+    const hasPowerBi = apiProjects.some(
+      (p) =>
+        p.id === POWER_BI_PROJECT.id ||
+        p.title?.toLowerCase().includes('power bi') ||
+        p.liveUrl?.includes('powerbi.com')
+    );
+
+    return hasPowerBi ? apiProjects : [POWER_BI_PROJECT, ...apiProjects];
   }, [data, isError]);
 
   return (
     <section id="projects" className="py-32 relative">
-      {/* Background accent */}
       <div className="absolute top-1/2 right-0 w-1/2 h-96 bg-primary/5 rounded-l-full blur-3xl -translate-y-1/2" />
 
       <div className="container mx-auto px-6 relative z-10">
@@ -192,23 +154,17 @@ const ProjectsSection = () => {
             represents my commitment to quality and innovation.
           </p>
           {isError && (
-            <p className="text-sm text-destructive mt-3">
-              Could not load live projects, showing fallback items.
+            <p className="text-sm text-muted-foreground mt-3">
+              Showing featured projects while the API is unavailable.
             </p>
           )}
         </div>
 
-        {/* Projects grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {projects.map((project) => (
-            <ProjectCard 
-              key={project.id} 
-              project={project} 
-              isEmbedded={project.isEmbedded}
-            />
+            <ProjectCard key={project.id} project={project} />
           ))}
 
-          {/* Add project placeholder */}
           <div className="glass-card border-2 border-dashed border-border hover:border-primary/50 rounded-2xl flex flex-col items-center justify-center p-8 transition-all duration-300 group cursor-pointer min-h-[300px]">
             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
               <Plus size={24} className="text-primary" />

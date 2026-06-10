@@ -32,8 +32,8 @@ const AboutSection = () => {
 
                 {/* CV Download Button */}
                 <a
-                  href="Client\cv\Emmanuel_Kai_Modern_Hybrid_CV (1) (1).pdf"
-                  download
+                  href="/cv/resume.pdf"
+                  download="resume.pdf"
                   className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition shadow-md"
                 >
                   <Download size={20} />

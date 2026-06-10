@@ -6,6 +6,16 @@ import { fetchPortfolio } from '@/lib/api';
 
 const fallbackProjects = [
   {
+    id: 'seed-0',
+    title: 'Recording Equipment Sales Dashboard',
+    description:
+      'Interactive Power BI dashboard analyzing equipment sales data for 2022-2023. Features real-time visualizations, trend analysis, and performance metrics.',
+    technologies: ['Power BI', 'Data Analytics', 'Business Intelligence'],
+    liveUrl: 'https://app.powerbi.com/links/UnT2ciOPpw?ctid=0765532a-06c1-4f0f-9f39-394689f5f8fe&pbi_source=linkShare',
+    isEmbedded: true,
+    embedUrl: 'https://app.powerbi.com/links/UnT2ciOPpw?ctid=0765532a-06c1-4f0f-9f39-394689f5f8fe&pbi_source=linkShare',
+  },
+  {
     id: 'seed-1',
     title: 'Portfolio Website',
     description:
@@ -23,57 +33,107 @@ const fallbackProjects = [
   },
 ];
 
-const ProjectCard = ({ project }) => (
-  <div className="glass-card-hover rounded-2xl overflow-hidden group">
-    {/* Project image placeholder */}
-    <div className="aspect-video bg-gradient-to-br from-primary/20 to-blue-500/20 relative overflow-hidden">
-      <div className="absolute inset-0 flex items-center justify-center">
-        <Folder size={48} className="text-primary/50" />
-      </div>
-      {/* Hover overlay */}
-      <div className="absolute inset-0 bg-background/90 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-4">
-        {project.liveUrl && (
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 rounded-full bg-primary text-primary-foreground hover:scale-110 transition-transform"
-          >
-            <ExternalLink size={20} />
-          </a>
-        )}
-        {project.githubUrl && (
-          <a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 rounded-full bg-secondary text-foreground hover:scale-110 transition-transform"
-          >
-            <Github size={20} />
-          </a>
-        )}
-      </div>
-    </div>
+const ProjectCard = ({ project, isEmbedded }) => {
+  if (isEmbedded) {
+    return (
+      <div className="glass-card-hover rounded-2xl overflow-hidden group md:col-span-2 lg:col-span-3">
+        {/* Power BI Embed */}
+        <div className="relative overflow-hidden rounded-2xl">
+          <div className="relative w-full h-96">
+            <iframe
+              src={project.embedUrl}
+              title={project.title}
+              allowFullScreen
+              className="w-full h-full border-0 rounded-2xl"
+              loading="lazy"
+            />
+          </div>
+        </div>
 
-    {/* Content */}
-    <div className="p-6">
-      <h3 className="text-xl font-heading font-semibold mb-2">{project.title}</h3>
-      <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
-        {project.description}
-      </p>
-      <div className="flex flex-wrap gap-2">
-        {project.technologies.map((tech) => (
-          <span
-            key={tech}
-            className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary border border-primary/20"
-          >
-            {tech}
-          </span>
-        ))}
+        {/* Content */}
+        <div className="p-6">
+          <h3 className="text-xl font-heading font-semibold mb-2">{project.title}</h3>
+          <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+            {project.description}
+          </p>
+          <div className="flex flex-wrap gap-2 mb-4">
+            {project.technologies.map((tech) => (
+              <span
+                key={tech}
+                className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary border border-primary/20"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-primary hover:underline font-semibold"
+            >
+              <ExternalLink size={16} />
+              View Full Report
+            </a>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="glass-card-hover rounded-2xl overflow-hidden group">
+      {/* Project image placeholder */}
+      <div className="aspect-video bg-gradient-to-br from-primary/20 to-blue-500/20 relative overflow-hidden">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Folder size={48} className="text-primary/50" />
+        </div>
+        {/* Hover overlay */}
+        <div className="absolute inset-0 bg-background/90 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-4">
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 rounded-full bg-primary text-primary-foreground hover:scale-110 transition-transform"
+            >
+              <ExternalLink size={20} />
+            </a>
+          )}
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 rounded-full bg-secondary text-foreground hover:scale-110 transition-transform"
+            >
+              <Github size={20} />
+            </a>
+          )}
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-6">
+        <h3 className="text-xl font-heading font-semibold mb-2">{project.title}</h3>
+        <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+          {project.description}
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {project.technologies.map((tech) => (
+            <span
+              key={tech}
+              className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary border border-primary/20"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const ProjectsSection = () => {
   const { data, isLoading, isError } = useQuery({
@@ -93,6 +153,8 @@ const ProjectsSection = () => {
       liveUrl: item.liveUrl,
       githubUrl: item.githubUrl,
       imageUrl: item.imageUrl,
+      isEmbedded: item.isEmbedded,
+      embedUrl: item.embedUrl,
     }));
   }, [data, isError]);
 
@@ -123,7 +185,11 @@ const ProjectsSection = () => {
         {/* Projects grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <ProjectCard 
+              key={project.id} 
+              project={project} 
+              isEmbedded={project.isEmbedded}
+            />
           ))}
 
           {/* Add project placeholder */}

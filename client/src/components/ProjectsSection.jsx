@@ -9,11 +9,12 @@ const fallbackProjects = [
     id: 'seed-0',
     title: 'Recording Equipment Sales Dashboard',
     description:
-      'Interactive Power BI dashboard analyzing equipment sales data for 2022-2023. Features real-time visualizations, trend analysis, and performance metrics.',
+      'Interactive Power BI dashboard analyzing equipment sales data for 2022-2023. Features real-time visualizations, trend analysis, and performance metrics across different countries and product categories.',
     technologies: ['Power BI', 'Data Analytics', 'Business Intelligence'],
     liveUrl: 'https://app.powerbi.com/links/UnT2ciOPpw?ctid=0765532a-06c1-4f0f-9f39-394689f5f8fe&pbi_source=linkShare',
     isEmbedded: true,
     embedUrl: 'https://app.powerbi.com/links/UnT2ciOPpw?ctid=0765532a-06c1-4f0f-9f39-394689f5f8fe&pbi_source=linkShare',
+    imageUrl: '/images/powerbi-dashboard.png',
   },
   {
     id: 'seed-1',
@@ -37,21 +38,36 @@ const ProjectCard = ({ project, isEmbedded }) => {
   if (isEmbedded) {
     return (
       <div className="glass-card-hover rounded-2xl overflow-hidden group md:col-span-2 lg:col-span-3">
-        {/* Power BI Embed */}
-        <div className="relative overflow-hidden rounded-2xl">
-          <div className="relative w-full h-96">
-            <iframe
-              src={project.embedUrl}
-              title={project.title}
-              allowFullScreen
-              className="w-full h-full border-0 rounded-2xl"
-              loading="lazy"
-            />
+        {/* Dashboard Preview Image and Embed */}
+        <div className="grid md:grid-cols-2 gap-4 p-4">
+          {/* Image Preview */}
+          {project.imageUrl && (
+            <div className="relative overflow-hidden rounded-xl h-96">
+              <img 
+                src={project.imageUrl}
+                alt={project.title}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+            </div>
+          )}
+          
+          {/* Power BI Embed */}
+          <div className="relative overflow-hidden rounded-xl">
+            <div className="relative w-full h-96">
+              <iframe
+                src={project.embedUrl}
+                title={project.title}
+                allowFullScreen
+                className="w-full h-full border-0 rounded-xl"
+                loading="lazy"
+              />
+            </div>
           </div>
         </div>
 
         {/* Content */}
-        <div className="p-6">
+        <div className="px-6 pb-6">
           <h3 className="text-xl font-heading font-semibold mb-2">{project.title}</h3>
           <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
             {project.description}

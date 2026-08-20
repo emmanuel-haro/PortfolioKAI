@@ -8,7 +8,6 @@ const navItems = [
   { label: 'Skills', href: '#skills' },
   { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Contact', href: '#contact' },
 ];
 
 const Navbar = () => {
@@ -53,7 +52,7 @@ const Navbar = () => {
             </a>
           ))}
           <Button variant="hero" size="sm" asChild>
-            <a href="#contact">Hire Me</a>
+            <a href="mailto:emmanuelkai79@gmail.com">Hire Me</a>
           </Button>
         </div>
 
@@ -84,7 +83,7 @@ const Navbar = () => {
             </a>
           ))}
           <Button variant="hero" size="sm" asChild>
-            <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
+            <a href="mailto:emmanuelkai79@gmail.com" onClick={() => setIsMobileMenuOpen(false)}>
               Hire Me
             </a>
           </Button>

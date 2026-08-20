@@ -51,7 +51,7 @@ const HeroSection = () => {
               <a href="#projects">View My Work</a>
             </Button>
             <Button variant="hero-outline" size="xl" asChild>
-              <a href="#contact">Get In Touch</a>
+              <a href="mailto:emmanuelkai79@gmail.com">Get In Touch</a>
             </Button>
           </div>
 

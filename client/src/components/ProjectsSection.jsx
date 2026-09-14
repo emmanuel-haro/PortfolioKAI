@@ -29,6 +29,7 @@ const FEATURED_PROJECTS = [
       'A community-focused website for Hope 4 Life Agency, presenting its mission, programs, impact, and ways for visitors to get involved through a warm, accessible experience.',
     technologies: ['React', 'JavaScript', 'Responsive Design'],
     liveUrl: 'https://www.hope4lifeagency.org/',
+    imageUrl: '/images/hope4life-agency.png',
   },
 ];
 
